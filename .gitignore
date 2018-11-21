@@ -1,5 +1,7 @@
 # Prerequisites
 *.d
+*.plist
+*.dSYM
 
 # Compiled Object files
 *.slo
