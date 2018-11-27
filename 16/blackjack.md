@@ -1,3 +1,40 @@
+# Blackjack
+
+**Output**
+
+```
+skm$ ./a.out
+******* BLACK JACK ********
+
+Creating card deck
+Shuffling the card deck
+
+PLAYER GAME BEGINS
+
+
+Hit (h), Stand (s) - h
+
+Hit (h), Stand (s) - h
+
+Hit (h), Stand (s) - s
+
+Player score - 17
+
+
+AGENT GAME BEGINS
+
+Hit (h), Stand (s) - h
+
+Hit (h), Stand (s) - h
+
+Agent score - 18
+
+Agent wins!!!
+
+*********GAME OVER*********
+```
+
+## Game Rules
 A deck of cards has 52 unique cards (13 card ranks of 4 suits). Create enumerations for the card ranks (2, 3, 4, 5, 6, 7, 8, 9, 10, Jack, Queen, King, Ace) and suits (clubs, diamonds, hearts, spades).
 
 Each card will be represented by a struct named Card that contains a rank and a suit. Create the struct.
