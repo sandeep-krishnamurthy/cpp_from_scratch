@@ -57,12 +57,12 @@ int main() {
 
     // Play Agent - >17 < 21 or > 21 points
     while(true) {
-        if (agent_score > 17) {
+        if (agent_score > 21) {
+            agent_bust = true;
             break;
         }
 
-        if (agent_score > 21) {
-            agent_bust = true;
+        if (agent_score > 17) {
             break;
         }
 
