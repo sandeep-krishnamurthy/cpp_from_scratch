@@ -119,6 +119,7 @@ My repo for learning CPP from scratch!
     * Prefer using c++11 function pointer style. #include <functional>; std::function<int(int, double)> fptr.
     * Always try to avoid ellipsis (“…”) for variable inputs. It does not have type checks and length is important parameter to know.
 28.	Use “static_assert(cond, msg)” instead of c style assert. All “static_*” are compile time!! i.e., value should be known, cannot have static_assert on a variable.
+29. A class in the standard library meets your needs, use that instead of creating your own. For example, instead of using IntArray, you’re better off using std::vector<int>. It’s battle tested, efficient, and plays nicely with the other classes in the standard library.
   
 # Best Practices - Object Oriented Programming with C++
 
@@ -139,4 +140,21 @@ My repo for learning CPP from scratch!
 15.	“explicit” Consider making your constructors and user-defined conversion member functions explicit to prevent implicit conversion errors
 16.	“delete”. Just making a function private does not fully guarantee protection on things you don’t want to do. For example, member functions, friend functions can still call private. Use “delete” when you absolutely want to disallow a behavior.
 17.	Be extra cautious about overloading assignment operator for cases – self assignment, dynamic allocated members. Use Deep Copy.
+18. If you provide list construction, using std::initializer_list, it’s a good idea to provide list assignment as well. Otherwise, assignment invokes default constructor that creates a temporary initializer list and maps to the constructor we gave with initializer list, that goes out of scope after constructor is called.
+19. A good rule of thumb is that each class should be built to accomplish a single task. That task should either be the storage and manipulation of some kind of data (e.g. Point2D, std::string), OR the coordination of subclasses (e.g. Creature). Ideally not both.
+20. When you’re determining what kind of relationship to implement, implement the simplest relationship that meets your needs, not the one that seems like it would fit best in a real-life context.
+For example, if you’re writing a body shop simulator, you may want to implement a car and engine as an aggregation, so the engine can be removed and put on a shelf somewhere for later. However, if you’re writing a racing simulation, you may want to implement a car and an engine as a composition, since the engine will never exist outside of the car in that context.
+21. Container classes typically implement a fairly standardized minimal set of functionality. Most well-defined containers will include functions that:
+    * Create an empty container (via a constructor)
+    * Insert a new object into the container
+    * Remove an object from the container
+    * Report the number of objects currently in the container
+    * Empty the container of all objects
+    * Provide access to the stored objects
+    * Sort the elements (optional)
+22. Do not initialize or do black magic around base class members, inside the derived class. Deligate to owner. 
+23. Use public inheritance unless you have a specific reason to do otherwise.
+24.  Avoid multiple inheritance unless alternatives lead to more complexity.
+
+
 
