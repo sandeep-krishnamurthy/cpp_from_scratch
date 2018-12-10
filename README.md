@@ -154,7 +154,45 @@ For example, if you’re writing a body shop simulator, you may want to implemen
     * Sort the elements (optional)
 22. Do not initialize or do black magic around base class members, inside the derived class. Deligate to owner. 
 23. Use public inheritance unless you have a specific reason to do otherwise.
-24.  Avoid multiple inheritance unless alternatives lead to more complexity.
+24. Avoid multiple inheritance unless alternatives lead to more complexity.
+25. Never call virtual functions from constructors or destructors.
+26. Virtual Functions are costly: resolving a virtual function call takes longer than resolving a regular one. Furthermore, the compiler also has to allocate an extra pointer for each class object that has one or more virtual functions.
+27. Apply the override specifier to every intended override function you write to avoid misses.
+28. Whenever you are dealing with inheritance, you should make any explicit destructors virtual else derived resources are not cleaned up!
+29. Make use of interface classes to define the clean hierarchy and an extensible software solution.
+30. Polymorphism works with reference and pointers. If you directly assigned a derived class to base class type, then only base part of the derived class will be copied. 
+    * This is most common bug in function parameters! func(const Base base) v/s func(const Base& base)
+    * Using vector<Base> is another common pitfall. You should use address i.e., Vector<Base*> as a best practice.
+    * ALWAYS PREFER USING REFERENCE OR ADDRESS FOR CLASS OBJECT PASSING.
+31. When using vector with Class types, it is best practice to use reference_wrapper.
+    ```
+        #include <vector>
+        #include <functional>
+        int main() {
+            vector<std::reference_wrapper<Base> > v;
+            Base b(2);
+            Derived d(3);
+            v.push_back(b);
+            v.push_back(d);
+            // Get can be use to extract value from a reference_wrapper
+            v[0].get().member_func();
+        }
+    ```
+32. Another common pitfal is "Frankenobject" - Object of two different parts. 
+    ```
+        int main() {
+            Derived d1(3);
+            Derived d2(5);
 
+            // OK
+            Base &b = d2;
+
+            // Only base portion of d1 is copied to b. d2 portion remains!
+            // Reason is b is of type Base.
+            b = d1; // Problem - Frankenobject
+        }
+    ```
+33. Always ensure your dynamic casts actually succeeded by checking for a null pointer result. Because, if dynamic_cast<> fails, it returns "null" pointer.
+34. In general, using a virtual function should be preferred over downcasting (using static_cast or dynamic_cast). However, casting is useful when - base cannot be modified (library), derived only specialization functions.
 
 
